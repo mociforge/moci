@@ -149,6 +149,10 @@ Memories are stored in four concentric rings that prevent unbounded growth:
 
 Total budget: 32 KB default, configurable up to 64 KB. Ten years of identity history fits under 4 KB.
 
+<img width="1410" height="1104" alt="image" src="https://github.com/user-attachments/assets/76aa6161-450c-486e-85c1-081f21fddef8" />
+
+
+
 ### Clone detection
 
 ```
