@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import { MociIdentityManager } from "../core/identity.js";
 import { AuditLogger } from "../audit/logger.js";
 import { getIdentitiesDir } from "../storage/paths.js";
-import { deriveDeviceFingerprint } from "../storage/salt.js";
+import { deriveDeviceFingerprint, deriveLegacyDeviceFingerprint } from "../storage/salt.js";
 import { deriveKeyPair } from "../crypto/pbkdf2.js";
 import { MociError } from "../core/errors.js";
 
@@ -60,7 +60,12 @@ export function loadIdentity(
   const manager = new MociIdentityManager();
   const resolvedId = mociId ?? findFirstIdentity();
   const secret = passphrase ?? deriveDeviceFingerprint(resolvedId);
-  manager.load(resolvedId, secret);
+  const legacySecret = passphrase ? undefined : deriveLegacyDeviceFingerprint(resolvedId);
+  manager.load(resolvedId, secret, legacySecret);
+
+  if (manager.usedLegacyFingerprint) {
+    info("Identity uses legacy fingerprint. Run: moci migrate-fingerprint");
+  }
 
   const identity = manager.identity!;
   const keys = deriveKeys(resolvedId, identity.meta.security_tier, passphrase);

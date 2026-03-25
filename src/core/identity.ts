@@ -4,7 +4,7 @@ import process from "node:process";
 import { MociError } from "./errors.js";
 import { DISK_SPACE_MIN_BYTES } from "./constants.js";
 import type { MociIdentity, MemoryEntry } from "./types.js";
-import { keccak256 } from "../crypto/keccak.js";
+import { keccak256, verifyCryptoIntegrity } from "../crypto/keccak.js";
 import { timingSafeEqual } from "../crypto/timing.js";
 import { encrypt, decrypt } from "../crypto/aes.js";
 import {
@@ -32,11 +32,20 @@ export class MociIdentityManager {
   private _basePath: string | undefined;
   private _readOnly = false;
   private _shutdownRegistered = false;
+  private _legacyFingerprintWarning = false;
 
   /**
    * @param basePath - Override base directory (for testing). Omit for production (~/.openclaw/).
+   * @throws MociError with code CRYPTO_SELF_TEST_FAILED if the keccak-256 implementation
+   *         does not produce the expected reference digests.
    */
   constructor(basePath?: string) {
+    if (!verifyCryptoIntegrity()) {
+      throw new MociError(
+        "CRYPTO_SELF_TEST_FAILED",
+        "Cryptographic library integrity check failed. The keccak256 implementation may have been tampered with. Refusing to start.",
+      );
+    }
     this._basePath = basePath;
   }
 
@@ -62,6 +71,14 @@ export class MociIdentityManager {
   }
 
   /**
+   * True when the most recent load() succeeded only via a legacy (pre-hardware-binding)
+   * fingerprint. The caller should advise the user to run `moci migrate-fingerprint`.
+   */
+  get usedLegacyFingerprint(): boolean {
+    return this._legacyFingerprintWarning;
+  }
+
+  /**
    * Load an identity from disk, decrypt it, verify its integrity.
    *
    * Checks performed:
@@ -71,23 +88,42 @@ export class MociIdentityManager {
    * 4. Breadcrumb anti-rollback (1-behind tolerance for crash recovery)
    *
    * Falls back to .bak file if primary is corrupted.
+   * When a legacyPassphrase is supplied the loader will attempt decryption
+   * with the primary passphrase first and, on failure, retry with the legacy
+   * one to support the v0.1.0→v0.2.0 fingerprint migration.
    *
    * @param mociId - The MOCI ID to load.
    * @param passphrase - Decryption passphrase (Tier 2) or device-derived key.
+   * @param legacyPassphrase - Optional pre-hardware-binding fingerprint (v0.1.0 compat).
    * @returns The loaded MociIdentity.
    * @throws MociError with code IDENTITY_NOT_FOUND, IDENTITY_CORRUPTED, or BREADCRUMB_ROLLBACK_DETECTED.
    */
-  load(mociId: string, passphrase: string): MociIdentity {
+  load(mociId: string, passphrase: string, legacyPassphrase?: string): MociIdentity {
     const primaryPath = getIdentityFilePath(mociId, this._basePath);
     const backupPath = getIdentityBackupPath(mociId, this._basePath);
 
     let identity: MociIdentity | null = null;
+    let usedLegacy = false;
+
     identity = this._tryLoad(primaryPath, passphrase);
     if (!identity) {
       identity = this._tryLoad(backupPath, passphrase);
+    }
+
+    if (!identity && legacyPassphrase) {
+      identity = this._tryLoad(primaryPath, legacyPassphrase);
       if (!identity) {
-        throw new MociError("IDENTITY_NOT_FOUND", `Identity not found: ${mociId}`);
+        identity = this._tryLoad(backupPath, legacyPassphrase);
       }
+      if (identity) usedLegacy = true;
+    }
+
+    if (!identity) {
+      throw new MociError("IDENTITY_NOT_FOUND", `Identity not found: ${mociId}`);
+    }
+
+    if (usedLegacy) {
+      this._legacyFingerprintWarning = true;
     }
 
     this._verifyRing3Chain(identity);
