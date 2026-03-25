@@ -1,0 +1,37 @@
+<svg width="100%" viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
+<style>
+svg{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.th{font-size:14px;font-weight:500}.ts{font-size:12px;font-weight:400}
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="40" y="40" width="120" height="56" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text class="th" x="100" y="60" text-anchor="middle" dominant-baseline="central" fill="#444441">Human</text>
+<text class="ts" x="100" y="78" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">Owner / sponsor</text>
+<line x1="160" y1="68" x2="210" y2="68" stroke="#534AB7" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text class="ts" x="185" y="60" text-anchor="middle" fill="#534AB7">Delegates</text>
+<rect x="218" y="40" width="130" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text class="th" x="283" y="60" text-anchor="middle" dominant-baseline="central" fill="#3C3489">Gateway</text>
+<text class="ts" x="283" y="78" text-anchor="middle" dominant-baseline="central" fill="#534AB7">Issues CIT tokens</text>
+<line x1="283" y1="96" x2="283" y2="140" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arrow)"/>
+<rect x="173" y="148" width="220" height="80" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text class="th" x="283" y="168" text-anchor="middle" dominant-baseline="central" fill="#085041">CIT token</text>
+<text class="ts" x="283" y="186" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">moci_id + ring3_head</text>
+<text class="ts" x="283" y="202" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">trust_score + nonce + TTL</text>
+<text class="ts" x="283" y="218" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">skill_target + delegation[]</text>
+<line x1="283" y1="228" x2="283" y2="270" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text class="ts" x="308" y="254" text-anchor="start" fill="#0F6E56">HMAC-SHA256 signed</text>
+<rect x="193" y="278" width="180" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text class="th" x="283" y="304" text-anchor="middle" dominant-baseline="central" fill="#085041">skill:weather</text>
+<rect x="430" y="148" width="210" height="200" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text class="th" x="450" y="172" text-anchor="start" fill="#444441">Verification checks</text>
+<text class="ts" x="450" y="196" text-anchor="start" fill="#0F6E56">1. Key pin matches?</text>
+<text class="ts" x="450" y="214" text-anchor="start" fill="#0F6E56">2. Signature valid? (timingSafe)</text>
+<text class="ts" x="450" y="232" text-anchor="start" fill="#0F6E56">3. Not expired? (60-300s TTL)</text>
+<text class="ts" x="450" y="250" text-anchor="start" fill="#0F6E56">4. Correct skill_target?</text>
+<text class="ts" x="450" y="268" text-anchor="start" fill="#0F6E56">5. Nonce not seen before?</text>
+<text class="ts" x="450" y="286" text-anchor="start" fill="#0F6E56">6. Valid MOCI format?</text>
+<text class="ts" x="450" y="304" text-anchor="start" fill="#0F6E56">7. Delegation depth &#x2264; 5?</text>
+<line x1="393" y1="300" x2="432" y2="270" fill="none" stroke="#B4B2A9" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text class="ts" x="450" y="336" text-anchor="start" fill="#888780">Any check fails = reject</text>
+<text class="ts" x="450" y="352" text-anchor="start" fill="#5F5E5A">All pass = auth.valid + mociId + trustScore</text>
+</svg>

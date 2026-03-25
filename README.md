@@ -149,6 +149,9 @@ Memories are stored in four concentric rings that prevent unbounded growth:
 
 Total budget: 32 KB default, configurable up to 64 KB. Ten years of identity history fits under 4 KB.
 
+
+<img width="1410" height="1104" alt="image" src="https://github.com/user-attachments/assets/76aa6161-450c-486e-85c1-081f21fddef8" />
+
 ### Clone detection
 
 ```
@@ -157,6 +160,7 @@ T+1h    Real agent accumulates new memories
 T+24h   Ring promotion → hash chains diverge
         → Fork detected → both instances quarantined
 ```
+![](docs/diagrams/02-clone-detection-timeline.svg)
 
 ### Dual-factor verification
 
@@ -167,9 +171,13 @@ T+24h   Ring promotion → hash chains diverge
 | Copied memory only | Missing | Present | Rejected |
 | Clone (key + snapshot) | Valid | Diverges 24h | Fork detected |
 
+
+
 ---
 
 ## Security
+
+![](docs/diagrams/03-cit-verification-flow.svg)
 
 ### Identity Token (CIT)
 
@@ -243,6 +251,8 @@ moci import moci-export-a7f3e21b.enc
 
 On import, all memory entry HMACs are re-signed with the new device's key. The Ring 3 chain integrity is verified before import is accepted. Revoked identities cannot be imported (tombstone check).
 
+![](docs/diagrams/05-encryption-layers.svg)
+
 ---
 
 ## Trust Score
@@ -258,6 +268,8 @@ Computed from memory chain continuity (10-100):
 | 90-100 | Core | 10+ months, zero interruptions |
 
 Other agents can gate access based on trust score.
+
+![](docs/diagrams/04-trust-score-breakdown.svg)
 
 ---
 

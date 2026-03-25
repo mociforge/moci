@@ -1,0 +1,49 @@
+<svg width="100%" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg">
+<style>
+svg{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.th{font-size:14px;font-weight:500}.ts{font-size:12px;font-weight:400}
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="40" y="30" width="140" height="56" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text class="th" x="110" y="50" text-anchor="middle" dominant-baseline="central" fill="#791F1F">Ring 0 (hot)</text>
+<text class="ts" x="110" y="68" text-anchor="middle" dominant-baseline="central" fill="#A32D2D">Last 24h, full detail</text>
+<text class="ts" x="225" y="58" text-anchor="middle" fill="#854F0B">Summarize</text>
+<line x1="180" y1="58" x2="248" y2="58" stroke="#854F0B" stroke-width="0.8" marker-end="url(#arrow)"/>
+<rect x="256" y="30" width="140" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text class="th" x="326" y="50" text-anchor="middle" dominant-baseline="central" fill="#633806">Ring 1 (warm)</text>
+<text class="ts" x="326" y="68" text-anchor="middle" dominant-baseline="central" fill="#854F0B">30 days, summarized</text>
+<text class="ts" x="441" y="58" text-anchor="middle" fill="#0F6E56">Distill</text>
+<line x1="396" y1="58" x2="464" y2="58" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arrow)"/>
+<rect x="472" y="30" width="140" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text class="th" x="542" y="50" text-anchor="middle" dominant-baseline="central" fill="#085041">Ring 2 (cool)</text>
+<text class="ts" x="542" y="68" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">1 year, key events</text>
+<line x1="542" y1="86" x2="542" y2="130" stroke="#534AB7" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text class="ts" x="568" y="112" text-anchor="start" fill="#534AB7">Hash</text>
+<rect x="472" y="138" width="140" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text class="th" x="542" y="158" text-anchor="middle" dominant-baseline="central" fill="#3C3489">Ring 3 (archive)</text>
+<text class="ts" x="542" y="176" text-anchor="middle" dominant-baseline="central" fill="#534AB7">Lifetime, hash chain</text>
+<rect x="40" y="120" width="370" height="200" rx="12" fill="none" stroke="#D3D1C7" stroke-width="0.5" stroke-dasharray="4 4"/>
+<text class="th" x="55" y="140" text-anchor="start" fill="#444441">Example: one day of agent activity</text>
+<rect x="60" y="156" width="330" height="36" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<text class="ts" x="225" y="178" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">47 React conversations, 12 API calls, 3 errors</text>
+<line x1="225" y1="192" x2="225" y2="218" stroke="#854F0B" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text class="ts" x="250" y="210" text-anchor="start" fill="#854F0B">AI summarizes</text>
+<rect x="100" y="226" width="250" height="36" rx="4" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text class="ts" x="225" y="248" text-anchor="middle" dominant-baseline="central" fill="#633806">"Focused on React, fixed 3 API bugs"</text>
+<line x1="225" y1="262" x2="225" y2="286" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text class="ts" x="250" y="278" text-anchor="start" fill="#0F6E56">After 30 days</text>
+<rect x="120" y="294" width="210" height="30" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text class="ts" x="225" y="313" text-anchor="middle" dominant-baseline="central" fill="#085041">"March: React project"</text>
+<line x1="330" y1="309" x2="470" y2="228" fill="none" stroke="#534AB7" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text class="ts" x="55" y="354" text-anchor="start" fill="#888780">After 1 year: keccak256(prev_hash + digest) = 32 bytes</text>
+<rect x="40" y="370" width="600" height="32" rx="6" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="40" y="370" width="48" height="32" rx="6" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text class="ts" x="56" y="386" text-anchor="start" fill="#A32D2D">8 KB</text>
+<rect x="88" y="370" width="72" height="32" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text class="ts" x="130" y="386" text-anchor="start" fill="#854F0B">12 KB</text>
+<rect x="160" y="370" width="48" height="32" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text class="ts" x="210" y="386" text-anchor="start" fill="#0F6E56">6 KB</text>
+<rect x="208" y="370" width="30" height="32" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text class="ts" x="258" y="386" text-anchor="start" fill="#534AB7">~4 KB (10 years)</text>
+<text class="ts" x="440" y="390" text-anchor="middle" fill="#888780">Total: 32 KB budget</text>
+</svg>

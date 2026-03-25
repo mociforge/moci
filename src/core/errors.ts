@@ -103,7 +103,10 @@ export type MociErrorCode =
   | "BREADCRUMB_READ_FAILED"
 
   // Timestamp / clock
-  | "CLOCK_INVALID";
+  | "CLOCK_INVALID"
+
+  // Cryptographic self-test
+  | "CRYPTO_SELF_TEST_FAILED";
 
 /**
  * Base error class for all MOCI errors.
